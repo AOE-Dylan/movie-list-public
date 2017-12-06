@@ -20,9 +20,7 @@ service: aws-nodejs # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs6.10
-
-# you can overwrite defaults here
-#  stage: dev
+  stage: dev
   region: us-west-2
 
 # you can add statements to the Lambda function's IAM Role here
@@ -56,7 +54,7 @@ provider:
 
 functions:
   post:
-    handler: lambdas/post.js
+    handler: lambdas/post.post
       events: 
         request:
           passThrough: WHEN_NO_TEMPLATES
@@ -64,13 +62,13 @@ functions:
             application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
 
   get:
-    handle: lambdas/get.js
+    handler: lambdas/get.get
 
   update:
-    handler: lambdas/update.js
+    handler: lambdas/update.update
 
   delete:
-    handler: lambdas/delete.js
+    handler: lambdas/delete.delete
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
