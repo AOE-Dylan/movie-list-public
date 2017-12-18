@@ -1,28 +1,38 @@
+//dylan
 'use strict';
 
-module.exports.hello = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: 'Go Serverless v1.0! Your function executed successfully!',
-      input: event,
-    }),
-  };
-
-  callback(null, response);
-
-  // Use this code if you don't use the http event with the LAMBDA-PROXY integration
-  // callback(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
-};
-
-$('#get').click(function(){
-    $.ajax({
-        url: "https://",
-        type: 'GET',
-        success: data => {
-            data.whatever
-            
-        },
-        'Content-Type': 'application/json'
-    })
+const Pool = require('pg-pool');
+const config = require('./config.json');
+const {table, host, database, user, password, port} = config;
+const Client = new Pool({
+ host,
+ database,
+ user,
+ password,
+ port,
+ idleTimeoutMillis : 1000
 });
+
+let getAllMovies = "SELECT * FROM " + table + " ORDER BY id ASC";
+
+module.exports.get = (event, context, callback) => {
+  Client.connect()
+  .then(client => {
+    console.log('connected to DB ' + Client.options.database);
+    client.release();
+    return client.query(getAllMovies);
+  })
+  .then(data => {
+    console.log(data.rows)
+    const response = {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin" : "*",
+        "Access-Control-Allow-Credentials" : true,
+        "Access-Control-Allow-Methods": "*"
+      },
+      body: JSON.stringify(data.rows)
+    }
+  callback(null, response);
+  });
+}

@@ -1,4 +1,4 @@
-# Welcome to Serverless!
+# Welcome to Serverless! Dylan
 #
 # This file is the main config file for your service.
 # It's very minimal at this point and uses default values.
@@ -53,22 +53,42 @@ provider:
 #    - exclude-me-dir/**
 
 functions:
-  post:
-    handler: lambdas/post.post
-      events: 
-        request:
-          passThrough: WHEN_NO_TEMPLATES
-          template:
-            application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
-
-  get:
-    handler: lambdas/get.get
-
-  update:
-    handler: lambdas/update.update
-
   delete:
     handler: lambdas/delete.delete
+    events:
+      - http:
+          path: delete
+          method: delete
+          cors: true
+  post:
+    request:
+      passThrough: WHEN_NO_TEMPLATES
+      template:
+        application/x-www-form-urlencoded: '{ "body" : "$input.body" }'
+    handler: lambdas/post.post
+    events:
+      - http:
+          path: post
+          method: post
+          cors: true
+  get:
+    handler: lambdas/get.get
+    events:
+      - http:
+          path: get
+          method: get
+          cors: true
+          request:
+            parameters:
+              paths:
+                id: true
+  update:
+    handler: lambdas/update.update
+    events:
+      - http:
+          path: put
+          method: put
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
