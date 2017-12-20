@@ -1,25 +1,21 @@
-/*const movie = (responseData) => {
-    responseData.data.options.title
+const listMovie = response => {
+  response.map((item) => {
+    $("#data").append("<div>" + item.id + "----" + item.title + "----" + item.genre + "----" + item.year + "</div>");
+  })
 };
 
-let listMovie = movie => {
-    $("#data").append(
-      $(`<h1 class="movies">${responseData.data.options.title}</h1>`),
-  );
-}
-*/
 $('#MyMovies').click(function(){
     $.ajax({
-        url: "https://6yvtnxwo7d.execute-api.us-west-2.amazonaws.com/dev/get",
+        url: "https://o5ozuypux6.execute-api.us-west-2.amazonaws.com/dev/get",
         type: 'GET',
-        success: data =>  console.log(data),
+        success: data =>  listMovie(data),
         'Content-Type': 'application/json'
     })
 });
 
 $('#NewMovie').click(function(){
     $.ajax({
-        url: "https://6yvtnxwo7d.execute-api.us-west-2.amazonaws.com/dev/post",
+        url: "https://o5ozuypux6.execute-api.us-west-2.amazonaws.com/dev/post",
         type: 'POST',
         success: data =>  console.log(what),
         'Content-Type': 'application/json'
@@ -28,7 +24,7 @@ $('#NewMovie').click(function(){
 
 $('#DeleteMovie').click(function(){
     $.ajax({
-        url: "https://6yvtnxwo7d.execute-api.us-west-2.amazonaws.com/dev/delete",
+        url: "https://o5ozuypux6.execute-api.us-west-2.amazonaws.com/dev/delete",
         type: 'DELETE',
         success: res =>  console.log(what),
         'Content-Type': 'application/json'
@@ -37,7 +33,7 @@ $('#DeleteMovie').click(function(){
 
 $('#UpdateMovie').click(function(){
     $.ajax({
-        url: "https://6yvtnxwo7d.execute-api.us-west-2.amazonaws.com/dev/put",
+        url: "https://o5ozuypux6.execute-api.us-west-2.amazonaws.com/dev/put",
         type: 'PUT',
         success: data =>  console.log(data),
         'Content-Type': 'application/json'

@@ -8,9 +8,15 @@
 <body>
 	<h1>Movies</h1>
 	<button id="MyMovies">My Movies</button>
-  <button id="NewMovie">New Movie</button>
   <button id="DeleteMovie">Delete Movie</button>
   <button id="UpdateMovie">Update Movies</button>
+	<form class="input">
+		<input type="text" name="id" id="id-in" value="insert here...">Id</input><br>
+		<input type="text" name="title" id="title-in" value="insert here...">Title</input><br>
+		<input type="text" name="year" id="year-in" value="insert here...">Year</input><br>
+		<input type="text" name="genre" id="genre-in" value="insert here...">Genre</input><br>
+	</form>
+	<button id="NewMovie">Create New Movie</button>
 	<div id="data"></div>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="./app.js"></script>

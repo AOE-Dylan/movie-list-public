@@ -13,7 +13,12 @@ const Client = new Pool({
  idleTimeoutMillis : 1000
 });
 
-const testStuff = require('../test_data/post.json');
+const testStuff = {
+  document.getElementById("id-in"),
+  document.getElementById("title-in"),
+  document.getElementById("year-in"),
+  document.getElementById("genre-in")
+};
 const {id, title, year, genre} = testStuff;
 const insert = new Pool({
  id,
